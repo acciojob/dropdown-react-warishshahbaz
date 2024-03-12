@@ -275,13 +275,13 @@ function App() {
 
       <div className="details_box">
         <h2>City</h2>
-        <div id="state-name">{cities[selectCity]?.name}</div>
-        <div id="state-description">{cities[selectCity]?.description}</div>
+        <div id="city-name">{cities[selectCity]?.name}</div>
+        <div id="city-description">{cities[selectCity]?.description}</div>
       </div>
       <div className="details_box">
         <h2>Landmarks</h2>
-        <div id="state-name">{landmarks[selectLandmark]?.name}</div>
-        <div id="state-description">
+        <div id="landmark-name">{landmarks[selectLandmark]?.name}</div>
+        <div id="landmark-description">
           {landmarks[selectLandmark]?.description}
         </div>
       </div>
