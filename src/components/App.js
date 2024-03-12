@@ -247,7 +247,7 @@ function App() {
     let landmarks = cities?.filter((_, i) => i == selectCity);
     setLandmarks(landmarks[0]?.landmarks ?? []);
   }, [cities, selectCity]);
-  console.log("selectLandmark", landmarks, selectLandmark);
+
   return (
     <div id="main">
       <div className="box">
