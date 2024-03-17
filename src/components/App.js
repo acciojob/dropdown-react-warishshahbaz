@@ -275,7 +275,7 @@ function App() {
 
       <div className="details_box">
         <h2>City</h2>
-        <div id="city-name">{cities[selectCity]?.name}</div>
+        <div id="city-title">{cities[selectCity]?.name}</div>
         <div id="city-description">{cities[selectCity]?.description}</div>
       </div>
       <div className="details_box">
