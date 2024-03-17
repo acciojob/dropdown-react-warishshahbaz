@@ -269,7 +269,7 @@ function App() {
       </div>
       <div className="details_box">
         <h2>State</h2>
-        <div id="state-name">{states[selectOption]?.name}</div>
+        <div id="state-title">{states[selectOption]?.name}</div>
         <div id="state-description">{states[selectOption]?.description}</div>
       </div>
 
