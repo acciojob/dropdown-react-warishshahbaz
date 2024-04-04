@@ -1,4 +1,4 @@
-import React, { useState, useReducer, useEffect } from "react";
+import React, { useState, useReducer } from "react";
 import "./../styles/App.css";
 
 const states = [
@@ -27,7 +27,7 @@ const states = [
       {
         name: "Bhopal",
         description:
-          "DBhopal is a city in the central Indian state of Madhya Pradesh. It's one of India’s greenest city. There are two main lakes, the Upper Lake and the Lower Lake.",
+          "DBhopal is a city in the central Indian state of Madhya Pradesh. It's one of India's greenest city. There are two main lakes, the Upper Lake and the Lower Lake.",
         landmarks: [
           {
             name: "MANIT",
@@ -117,7 +117,7 @@ const states = [
       {
         name: "Guwhati",
         description:
-          "Guwahati is a sprawling city beside the Brahmaputra River in the northeast Indian state of Assam. It’s known for holy sites like the hilltop Kamakhya Temple,",
+          "Guwahati is a sprawling city beside the Brahmaputra River in the northeast Indian state of Assam. It's known for holy sites like the hilltop Kamakhya Temple,",
         landmarks: [
           {
             name: "Ganesh Guri",
@@ -186,7 +186,7 @@ const states = [
       {
         name: "Gaya",
         description:
-          "Gaya is a holy city beside the Falgu River, in the northeast Indian state of Bihar. It’s known for 18th-century Vishnupad Mandir, a riverside temple with an octagonal shrine. Close by, ancient Mangla Gauri Temple is set on a hilltop. ",
+          "Gaya is a holy city beside the Falgu River, in the northeast Indian state of Bihar. It's known for 18th-century Vishnupad Mandir, a riverside temple with an octagonal shrine. Close by, ancient Mangla Gauri Temple is set on a hilltop. ",
         landmarks: [
           {
             name: "Bakraur",
@@ -219,70 +219,129 @@ const states = [
   },
 ];
 
+function Card(props) {
+  return (
+    <>
+      <div className="card px-3 py-0 mt-3 w-75">
+        <div className="card-body">
+          <h5 className="card-title name" id={props.type + "-title"}>
+            {props.name}
+          </h5>
+          <p className="card-text" id={props.type + "-description"}>
+            {props.description}
+          </p>
+        </div>
+      </div>
+    </>
+  );
+}
+
 function App() {
-  const [selectOption, setSelectedOption] = useState(0);
-  const [cities, setCities] = useState([]);
-  const [selectCity, setSelectCity] = useState(0);
-  const [landmarks, setLandmarks] = useState([]);
-  const [selectLandmark, setSelectLandmark] = useState(0);
-  // Do not alter/remove main div
-  const handleChange = (e) => {
-    setSelectedOption(e.target.value);
-  };
+  const [state, setState] = useState(0);
 
-  const handleCityChange = (e) => {
-    setSelectCity(e.target.value);
-  };
+  const [city, setCity] = useState(0);
 
-  const handleLandmarksChange = (e) => {
-    setSelectLandmark(e.target.value);
-  };
+  const [landmark, setLandmark] = useState(0);
 
-  useEffect(() => {
-    let cities = states?.filter((val, i) => i == selectOption);
-    setCities(cities[0]?.city);
-  }, [selectOption, states]);
-
-  useEffect(() => {
-    let landmarks = cities?.filter((_, i) => i == selectCity);
-    setLandmarks(landmarks[0]?.landmarks ?? []);
-  }, [cities, selectCity]);
-
+  // Do not alter main div
   return (
     <div id="main">
-      <div className="box">
-        <select id="state" value={selectOption} onChange={handleChange}>
-          {states.map((val, i) => {
-            return <option value={i}>{val.name} </option>;
-          })}
-        </select>
-        <select id="city" value={selectCity} onChange={handleCityChange}>
-          {cities?.map((val, i) => {
-            return <option value={i}>{val.name}</option>;
-          })}
-        </select>
-        <select id="landmark" onChange={handleLandmarksChange}>
-          {landmarks?.map((val, i) => {
-            return <option value={i}>{val.name}</option>;
-          })}
-        </select>
-      </div>
-      <div className="details_box">
-        <h2>State</h2>
-        <div id="state-title">{states[selectOption]?.name}</div>
-        <div id="state-description">{states[selectOption]?.description}</div>
-      </div>
-
-      <div className="details_box">
-        <h2>City</h2>
-        <div id="city-title">{cities[selectCity]?.name}</div>
-        <div id="city-description">{cities[selectCity]?.description}</div>
-      </div>
-      <div className="details_box">
-        <h2>Landmarks</h2>
-        <div id="landmark-name">{landmarks[selectLandmark]?.name}</div>
-        <div id="landmark-description">
-          {landmarks[selectLandmark]?.description}
+      <div className="row">
+        <div className="col-6">
+          <div className="row text-center m-5">
+            <div className="offset-3 col-2">
+              <label>States : </label>
+            </div>
+            <div className="col-4">
+              <select
+                name="states"
+                id="state"
+                value={state}
+                onChange={(e) => {
+                  setState(e.target.value);
+                  setCity(0);
+                  setLandmark(0);
+                }}
+                className="w-100"
+              >
+                {states.map((item, index) => (
+                  <option key={index} id={`state` + index} value={index}>
+                    {item.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+          <div className="row text-center m-5">
+            <div className="offset-3 col-2">
+              <label>Cities : </label>
+            </div>
+            <div className="col-4">
+              <select
+                name="city"
+                id="city"
+                className="w-100"
+                value={city}
+                onChange={(e) => {
+                  setCity(e.target.value);
+                  setLandmark(0);
+                }}
+              >
+                {states[state].city.map((item, index) => (
+                  <option id={`city` + index} key={index} value={index}>
+                    {item.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+          <div className="row text-center m-5">
+            <div className="offset-3 col-2">
+              <label>landmarks : </label>
+            </div>
+            <div className="col-4">
+              <select
+                name="landmark"
+                id="landmark"
+                className="w-100"
+                value={landmark}
+                onChange={(e) => {
+                  setLandmark(e.target.value);
+                }}
+              >
+                {states[state].city[city].landmarks.map((item, index) => (
+                  <option id={`landmark` + index} key={index} value={index}>
+                    {item.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+        </div>
+        <div className="col-6">
+          <div className="row">
+            <Card
+              name={states[state].name}
+              description={states[state].description}
+              type="state"
+            />
+          </div>
+          <div className="row">
+            <Card
+              name={states[state].city[city].name}
+              description={states[state].city[city].description}
+              type="city"
+            />
+          </div>
+          <div className="row">
+            <Card
+              name={states[state].city[city].landmarks[landmark].name}
+              description={
+                states[state].city[city].landmarks[landmark].description
+              }
+              type="landmark"
+            />
+          </div>
         </div>
       </div>
     </div>
